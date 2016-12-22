@@ -1,0 +1,5 @@
+﻿  Invader_S.cpp
+c:\users\fugius\docs\dev\cpp\sfml_test\sfml_test\invader_s.cpp(4): warning C4305: 'initialisation' : troncation de 'double' à 'float'
+c:\users\fugius\docs\dev\cpp\sfml_test\sfml_test\invader_s.cpp(14): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+  SFML_test.vcxproj -> C:\Users\Fugius\Docs\Dev\cpp\SFML_test\x64\Debug\SFML_test.exe
+  SFML_test.vcxproj -> C:\Users\Fugius\Docs\Dev\cpp\SFML_test\x64\Debug\SFML_test.pdb (Partial PDB)
