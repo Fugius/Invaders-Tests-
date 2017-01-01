@@ -10,6 +10,8 @@ Ship::Ship(sf::Vector2f size, sf::Vector2f screenSize, sf::Vector2f planetSize) 
 		m_ShipSprite[i] = new Entity(m_pos, size, adress);
 		m_ShipSprite[i]->rotate(90);
 	}
+
+	m_team = Defender;
 }
 
 void Ship::update()
@@ -83,6 +85,11 @@ void Ship::render(sf::RenderWindow &window)
 {
 
 	m_ShipSprite[m_actSprite]->render(&window);
+}
+
+sf::Vector2f * Ship::getPosition()
+{
+	return m_ShipSprite[0]->getPosition();
 }
 
 void Ship::fire()

@@ -21,7 +21,7 @@ public:
 	sf::Vector2f rotate(float angle);
 	sf::Vector2f rotate(float angle, sf::Vector2f center);
 	void flip();
-	sf::Shader *getShader();
+	sf::Vector2f *getPosition();
 	~Entity();
 
 private:
@@ -31,4 +31,5 @@ private:
 	string m_texFile;
 	sf::Shader m_shader;
 	bool m_hasShaders;
+	sf::Vector2f m_pos[4];
 };

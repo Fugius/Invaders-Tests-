@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "Entity.h"
+#include "GlobalUtils.h"
 
 class Planet
 {
@@ -12,6 +13,7 @@ public:
 	Planet(sf::Vector2f pos, float size, sf::Vector2f screenSize);
 	void update();
 	void render(sf::RenderWindow &window);
+	sf::Vector2f* getPosition();
 	bool isAlive();
 	~Planet();
 
@@ -24,5 +26,6 @@ private:
 	float m_size;
 	int m_counter;
 	sf::Vector2f m_screenSize;
+	Team m_team;
 
 };

@@ -4,31 +4,27 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <cmath>
 #include "Entity.h"
 #include "GlobalUtils.h"
-#include <random>
 
 
-using namespace std;
 
-class Invader_S
+class Projectile
 {
 public:
-	Invader_S(sf::Vector2f size, sf::Vector2f screenSize, Direction dir);
+	Projectile(sf::Vector2f origin, sf::Vector2f target, Team team);
 	void update();
 	void render(sf::RenderWindow &window);
 	sf::Vector2f* getPosition();
-	~Invader_S();
+	~Projectile();
 
 private:
-	Entity *m_InvaderSprite;
+	Entity m_sprite;
 	sf::Vector2f m_pos;
-	Direction m_direction;
-	float m_speed;
-	int m_counter;
-	sf::Vector2f m_screenSize;
 	sf::Vector2f m_size;
-	int m_hp;
+	float m_dx;
+	float m_dy;
+	int m_counter;
 	Team m_team;
-
 };

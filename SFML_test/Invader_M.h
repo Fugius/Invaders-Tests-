@@ -17,6 +17,7 @@ public:
 	Invader_M(sf::Vector2f size, sf::Vector2f screenSize, Direction dir);
 	void update();
 	void render(sf::RenderWindow &window);
+	sf::Vector2f* getPosition();
 	~Invader_M();
 
 private:
@@ -28,4 +29,5 @@ private:
 	sf::Vector2f m_screenSize;
 	sf::Vector2f m_size;
 	int m_hp;
+	Team m_team;
 };

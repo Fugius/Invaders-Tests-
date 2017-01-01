@@ -6,19 +6,19 @@
 #include <iostream>
 #include "Entity.h"
 #include "GlobalUtils.h"
+#include <time.h>
 #include <random>
-
 
 using namespace std;
 
-class Invader_S
+class Invader_L
 {
 public:
-	Invader_S(sf::Vector2f size, sf::Vector2f screenSize, Direction dir);
+	Invader_L(sf::Vector2f size, sf::Vector2f screenSize, Direction dir);
 	void update();
 	void render(sf::RenderWindow &window);
 	sf::Vector2f* getPosition();
-	~Invader_S();
+	~Invader_L();
 
 private:
 	Entity *m_InvaderSprite;
@@ -30,5 +30,4 @@ private:
 	sf::Vector2f m_size;
 	int m_hp;
 	Team m_team;
-
 };

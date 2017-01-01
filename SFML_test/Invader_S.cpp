@@ -12,6 +12,8 @@ Invader_S::Invader_S(sf::Vector2f size, sf::Vector2f screenSize, Direction dir) 
 
 	m_InvaderSprite = new Entity(m_pos, size, "Ressources/textures/ET1.png");
 	m_pos = m_InvaderSprite->rotate(rdAngle, sf::Vector2f(m_screenSize.x / 2, m_screenSize.y / 2));
+
+	m_team = Invaders;
 }
 
 void Invader_S::update()
@@ -30,6 +32,11 @@ void Invader_S::update()
 void Invader_S::render(sf::RenderWindow &window)
 {
 	m_InvaderSprite->render(&window);
+}
+
+sf::Vector2f * Invader_S::getPosition()
+{
+	return m_InvaderSprite->getPosition();
 }
 
 Invader_S::~Invader_S()

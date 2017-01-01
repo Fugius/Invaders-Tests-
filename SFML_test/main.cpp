@@ -3,6 +3,8 @@
 #include "Ship.h"
 #include "Invader_S.h"
 #include "Invader_M.h"
+#include "Invader_L.h"
+#include "Projectiles_Set.h"
 
 enum Size {WIDTH = 1280, HEIGHT = 720};
 
@@ -14,6 +16,7 @@ int main()
 	settings.antialiasingLevel = 16;
 
 	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Earth Invaders", sf::Style::Default, settings);
+
 	sf::Clock clock;
 	sf::Time t1 = sf::seconds(1/60);
 
@@ -23,10 +26,13 @@ int main()
 
 	Planet p(sf::Vector2f(WIDTH / 2 - planetSize/2, HEIGHT / 2 - planetSize / 2), planetSize, sf::Vector2f(WIDTH, HEIGHT));
 	Ship s(sf::Vector2f(50, 50), sf::Vector2f(WIDTH, HEIGHT), sf::Vector2f(planetSize, planetSize));
-	Invader_S i1(sf::Vector2f(30, 30), sf::Vector2f(WIDTH, HEIGHT), m_right);
-	Invader_M i2(sf::Vector2f(60, 60), sf::Vector2f(WIDTH, HEIGHT), m_left);
-	Invader_M i3(sf::Vector2f(60, 60), sf::Vector2f(WIDTH, HEIGHT), m_right);
+	Invader_S i1(sf::Vector2f(35, 35), sf::Vector2f(WIDTH, HEIGHT), m_right);
+	Invader_M i2(sf::Vector2f(50, 50), sf::Vector2f(WIDTH, HEIGHT), m_left);
+	Invader_L i3(sf::Vector2f(65, 65), sf::Vector2f(WIDTH, HEIGHT), m_right);
 	Entity background(sf::Vector2f(0, 0), sf::Vector2f(WIDTH, HEIGHT), "Ressources/textures/background.png");
+	Projectile_set prs;
+
+	prs.add_projectile(sf::Vector2f(0, 0), sf::Vector2f(WIDTH, HEIGHT), Defender);
 
 
 	while (window.isOpen())
@@ -75,6 +81,11 @@ int main()
 			i1.update();
 			i2.update();
 			i3.update();
+			prs.update();
+
+			prs.check_collisions(p.getPosition());
+			
+			
 		}
 
 		//render
@@ -84,6 +95,7 @@ int main()
 		i1.render(window);
 		i2.render(window);
 		i3.render(window);
+		prs.render(window);
 		window.display();
 	}
 

@@ -17,6 +17,7 @@ public:
 	void move(Direction dir);
 	void stopMoving();
 	void render(sf::RenderWindow &window);
+	sf::Vector2f* getPosition();
 	void fire();
 	void shield();
 	~Ship();
@@ -31,4 +32,5 @@ private:
 	bool m_moving;
 	int m_counter;
 	sf::Vector2f m_screenSize;
+	Team m_team;
 };

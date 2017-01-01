@@ -159,10 +159,19 @@ void Entity::flip()
 	m_array[1].texCoords = temp;
 }
 
-sf::Shader* Entity::getShader()
+sf::Vector2f *Entity::getPosition()
 {
-	return &m_shader;
+	int i = 0;
+
+	for (i = 0; i < 4; i++)
+	{
+		m_pos[i] = m_array[i].position;
+	}
+
+	return m_pos;
 }
+
+
 
 Entity::~Entity()
 {
