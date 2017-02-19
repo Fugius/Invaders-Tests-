@@ -22,6 +22,10 @@ bool Projectile_set::check_collisions(sf::Vector2f arrayPos[], Team team)
 	{
 		if (team != m_elements[i]->getTeam())
 		{
+
+			maxx = std::numeric_limits<float>::min(), maxy = std::numeric_limits<float>::min();
+			minx = std::numeric_limits<float>::max(), miny = std::numeric_limits<float>::max();
+
 			for (int j = 0; j < 4; j++)
 			{
 				maxx = std::max(m_elements[i]->getPosition()[j].x, maxx);
