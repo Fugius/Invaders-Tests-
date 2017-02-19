@@ -123,6 +123,7 @@
     <ClCompile Include="Invader_L.cpp" />
     <ClCompile Include="Invader_M.cpp" />
     <ClCompile Include="Invader_S.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="Invader_L.h" />
     <ClInclude Include="Invader_M.h" />
     <ClInclude Include="Invader_S.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Projectiles_Set.h" />

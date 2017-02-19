@@ -14,6 +14,7 @@ public:
 	Entity(sf::Vector2f pos, sf::Vector2f size, string tex, string vert_shader, string frag_shader);
 	Entity(sf::Vector2f pos, sf::Vector2f size, string tex);
 	void move(sf::Vector2f pos);
+	void Entity::move(sf::Vector2f pos[4]);
 	void setSize(sf::Vector2f size);
 	void setShaders(string vert_shader, string frag_shader);
 	void setTexture(string tex);

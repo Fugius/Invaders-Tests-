@@ -27,12 +27,12 @@ void Projectile::update()
 {
 	m_counter++;
 
-	if (m_counter % 20 == 0)
+	if (m_counter % 1 == 0)
 	{
-		m_pos.x += (m_dx / 400);
-		m_pos.y += (m_dy / 400);
+		m_pos.x += (m_dx / 50);
+		m_pos.y += (m_dy / 50);
 
-		m_sprite.move(sf::Vector2f(m_dx / 400, m_dy / 400));
+		m_sprite.move(sf::Vector2f(m_dx / 50, m_dy / 50));
 	}
 }
 
@@ -44,6 +44,11 @@ void Projectile::render(sf::RenderWindow & window)
 sf::Vector2f * Projectile::getPosition()
 {
 	return m_sprite.getPosition();
+}
+
+Team Projectile::getTeam()
+{
+	return m_team;
 }
 
 Projectile::~Projectile()

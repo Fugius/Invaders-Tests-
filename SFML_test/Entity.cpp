@@ -72,6 +72,14 @@ void Entity::move(sf::Vector2f pos)
 	m_array[3].position += pos;
 }
 
+void Entity::move(sf::Vector2f pos[4])
+{
+	m_array[0].position = pos[0];
+	m_array[1].position = pos[1];
+	m_array[2].position = pos[2];
+	m_array[3].position = pos[3];
+}
+
 void Entity::setSize(sf::Vector2f size)
 {
 	m_size = size;

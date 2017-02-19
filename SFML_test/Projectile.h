@@ -17,6 +17,7 @@ public:
 	void update();
 	void render(sf::RenderWindow &window);
 	sf::Vector2f* getPosition();
+	Team getTeam();
 	~Projectile();
 
 private:

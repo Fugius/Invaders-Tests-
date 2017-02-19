@@ -2,7 +2,7 @@
 
 Projectile_set::Projectile_set()
 {
-
+	m_e = new Entity(sf::Vector2f(0, 0), sf::Vector2f(0, 0), "Ressources/textures/test.png");
 }
 
 void Projectile_set::add_projectile(sf::Vector2f origin, sf::Vector2f target, Team team)
@@ -10,85 +10,81 @@ void Projectile_set::add_projectile(sf::Vector2f origin, sf::Vector2f target, Te
 	m_elements.push_back(new Projectile(origin, target, team));
 }
 
-bool Projectile_set::check_collisions(sf::Vector2f arrayPos[])
+bool Projectile_set::check_collisions(sf::Vector2f arrayPos[], Team team)
 {
-	bool colX(false);
-	bool colY(false);
 
-	int i(0), j(0);
-	float max_x_projectile(0), max_y_projectile(0), min_x_projectile(0), min_y_projectile(0);
-	float max_x_obj(0), max_y_obj(0), min_x_obj(arrayPos[0].x), min_y_obj(arrayPos[0].y);
+	float maxx = std::numeric_limits<float>::min(), maxy = std::numeric_limits<float>::min();
+	float minx = std::numeric_limits<float>::max(), miny = std::numeric_limits<float>::max();
 
-	//for each projectile
-	for (i = 0; i < m_elements.size(); i++)
-	{
-		min_y_projectile = m_elements[i]->getPosition()[0].y;
-		min_x_projectile = m_elements[i]->getPosition()[0].x;
-
-		for (j = 0; j < 4; j++)
-		{
-			if (arrayPos[j].x > max_x_obj)
-				max_x_obj = arrayPos[j].x;
-
-			if (arrayPos[j].y > max_y_obj)
-				max_y_obj = arrayPos[j].y;
-
-			if (m_elements[i]->getPosition()[j].x > max_x_projectile)
-				max_x_projectile = m_elements[i]->getPosition()[j].x;
-
-			if (m_elements[i]->getPosition()[j].y > max_y_projectile)
-				max_y_projectile = m_elements[i]->getPosition()[j].y;
-
-
-
-
-			if (arrayPos[j].x < min_x_obj)
-				min_x_obj = arrayPos[j].x;
-
-			if (arrayPos[j].y < min_y_obj)
-				min_y_obj = arrayPos[j].y;
-
-			if (m_elements[i]->getPosition()[j].x < min_x_projectile)
-				min_x_projectile = m_elements[i]->getPosition()[j].x;
-
-			if (m_elements[i]->getPosition()[j].y < min_y_projectile)
-				min_y_projectile = m_elements[i]->getPosition()[j].y;
-		}
-
-		j = 0;
-
-		if (max_x_obj > max_x_projectile)
-		{
-			if (max_x_projectile > min_x_obj)
-				colX = true;
-		}
-
-		else
-		{
-			if (max_x_obj > min_x_projectile)
-				colX = true;
-		}
-
-		if (max_y_obj > max_y_projectile)
-		{
-			if (max_y_projectile > min_y_obj)
-				colY = true;
-		}
-
-		else
-		{
-			if (max_y_obj > min_y_projectile)
-				colY = true;
-		}
+	bool coolision = false;
 	
-		if (colX && colY)
+	for (int i = 0; i < m_elements.size(); i++)
+	{
+		if (team != m_elements[i]->getTeam())
 		{
-			m_elements.erase(m_elements.begin() + i);
+			for (int j = 0; j < 4; j++)
+			{
+				maxx = std::max(m_elements[i]->getPosition()[j].x, maxx);
+				maxy = std::max(m_elements[i]->getPosition()[j].y, maxy);
+			}
+
+			for (int k = 0; k < 4; k++)
+			{
+				minx = std::min(m_elements[i]->getPosition()[k].x, minx);
+				miny = std::min(m_elements[i]->getPosition()[k].y, miny);
+			}
+
+			bool p1 = false;
+			bool p2 = false;
+			bool p3 = false;
+			bool p4 = false;
+
+			if ((arrayPos[0].x >= minx && arrayPos[0].y >= miny) && (arrayPos[0].x <= maxx && arrayPos[0].y <= maxy))
+				p1 = true;
+
+			if ((arrayPos[1].x <= maxx && arrayPos[1].y <= maxy) && (arrayPos[1].x > minx && arrayPos[1].y > miny))
+				p2 = true;
+
+			if ((arrayPos[2].x <= maxx && arrayPos[2].y <= maxy) && (arrayPos[2].x > minx && arrayPos[2].y > miny))
+				p3 = true;
+
+			if ((arrayPos[3].x >= minx && arrayPos[3].y >= miny) && (arrayPos[3].x <= maxx && arrayPos[3].y <= maxy))
+				p4 = true;
+
+			sf::Vector2f pos[4] = {
+				sf::Vector2f(minx, miny),
+				sf::Vector2f(maxx, miny),
+				sf::Vector2f(maxx, maxy),
+				sf::Vector2f(minx, maxy)
+			};
+
+			if ((pos[0].x >= arrayPos[0].x && pos[0].y >= arrayPos[0].y) && (pos[0].x <= arrayPos[1].x && pos[0].y <= arrayPos[2].y))
+				p1 = true;
+
+			if ((pos[1].x <= arrayPos[1].x && pos[1].y <= arrayPos[1].y) && (pos[1].x >= arrayPos[0].x && pos[1].y >= arrayPos[3].y))
+				p2 = true;
+
+			if ((pos[2].x <= arrayPos[2].x && pos[2].y <= arrayPos[1].y) && (pos[2].x >= arrayPos[3].x && pos[1].y >= arrayPos[3].y))
+				p3 = true;
+
+			if ((pos[3].x >= arrayPos[3].x && pos[3].y >= arrayPos[0].y) && (pos[3].x <= arrayPos[1].x && pos[3].y <= arrayPos[3].y))
+				p4 = true;
+
+			cout << endl << endl << i << " : max X = " << maxx << ", max Y = " << maxy << ", min X = " << minx << ", min Y = " << miny << endl << i << " : max x - min x = " << maxx- minx << ", max y - min y = " << maxy - miny << endl;
+			m_e->move(pos);
+			
+
+			if (p1 || p2 || p3 || p4)
+			{
+				m_elements.erase(m_elements.begin() + i);
+				coolision = true;
+				cout << "lol" << endl;
+			}
+				
 		}
-		
 	}
 
-	return (colX && colY);
+	return coolision;
 
 }
 
@@ -110,6 +106,8 @@ void Projectile_set::render(sf::RenderWindow & window)
 	{
 		m_elements[i]->render(window);
 	}
+
+	m_e->render(&window);
 }
 
 Projectile_set::~Projectile_set()

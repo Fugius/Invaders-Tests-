@@ -1,6 +1,6 @@
 #include "Ship.h"
 
-Ship::Ship(sf::Vector2f size, sf::Vector2f screenSize, sf::Vector2f planetSize) : m_pos((screenSize.x / 2) , (screenSize.y / 2) - (planetSize.y / 2) - 100), m_direction(m_right), m_speed(0), m_acc(0.00002), m_actSprite(0), m_moving(false), m_counter(0), m_screenSize(screenSize)
+Ship::Ship(sf::Vector2f size, sf::Vector2f screenSize, sf::Vector2f planetSize) : m_pos((screenSize.x / 2) , (screenSize.y / 2) - (planetSize.y / 2) - 100), m_direction(m_right), m_speed(0), m_acc(0.2), m_actSprite(0), m_moving(false), m_counter(0), m_screenSize(screenSize)
 {
 	int i = 0;
 
@@ -12,12 +12,13 @@ Ship::Ship(sf::Vector2f size, sf::Vector2f screenSize, sf::Vector2f planetSize) 
 	}
 
 	m_team = Defender;
+	m_hp = 3;
 }
 
 void Ship::update()
 {
 	m_counter++;
-	if (m_counter % 170 == 0)
+	if (m_counter % 2 == 0)
 		m_actSprite += 1;
 
 	if (m_actSprite > 5)
@@ -25,26 +26,39 @@ void Ship::update()
 
 	if (m_moving == false)
 	{
-		if (m_speed > 0)
-			m_speed -= m_acc;
-		else
-			m_speed = 0;
+		if (m_direction == m_right)
+		{
+			m_speed -= m_acc * 0.37;
+			if (m_speed <= 0)
+				m_speed = 0;
+		}
+			
+
+		if (m_direction == m_left)
+		{
+			m_speed += m_acc * 0.37;
+			if (m_speed >= 0)
+				m_speed = 0;
+		}
+
 	}
+
+	
 
 	else
 	{
 		if (m_direction == m_right)
 		{
-			if (m_speed >= 0.03)
-				m_speed = 0.03;
+			if (m_speed >= 2)
+				m_speed = 2;
 			else
 				m_speed += m_acc;
 		}
 
 		if (m_direction == m_left)
 		{
-			if (m_speed <= -0.03)
-				m_speed = -0.03;
+			if (m_speed <= -2)
+				m_speed = -2;
 			else
 				m_speed -= m_acc;
 		}
@@ -98,6 +112,16 @@ void Ship::fire()
 
 void Ship::shield()
 {
+}
+
+void Ship::getDamage()
+{
+	m_hp--;
+}
+
+bool Ship::isAllive()
+{
+	return m_hp > 0;
 }
 
 Ship::~Ship()

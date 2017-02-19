@@ -20,6 +20,8 @@ public:
 	sf::Vector2f* getPosition();
 	void fire();
 	void shield();
+	void getDamage();
+	bool isAllive();
 	~Ship();
 
 private:
@@ -33,4 +35,5 @@ private:
 	int m_counter;
 	sf::Vector2f m_screenSize;
 	Team m_team;
+	int m_hp;
 };
